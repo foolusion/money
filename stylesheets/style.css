@@ -1,0 +1,60 @@
+/* colors
+ * e3584d -- red
+ * bbde57 -- lime green
+ * e4ff9b -- light green
+ * 79a876 -- mid green
+ * 616939 -- dark green
+*/
+
+body {
+	background: #e4ff9b;
+	margin: 0px;
+	padding: 0px;
+}
+
+#main {
+	margin: 0px;
+	padding: 0px;
+}
+
+#menu {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	height: 48px;
+	background: #79a876;
+}
+
+#menu li {
+	float: left;
+	margin: 0px;
+	padding: 4px 0px 2px 0px;
+	width: 100px;
+	border-bottom: 2px solid #e3584d;
+}
+
+#menu a {
+	position: relative;
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: bold;
+	text-align: center;
+	background: #79a876;
+	color: #fff;
+}
+
+#menu a:hover {
+	background: #bbde57;
+}
+
+#menu li.sel {
+	border-bottom:4px solid #e3584d;
+	padding: 4px 0px 0px 0px;
+}
+
+#menu li.sel a {
+	background: #bbde57;
+}
