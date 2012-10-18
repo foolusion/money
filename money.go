@@ -1,16 +1,21 @@
 package main
 
 import (
-	"fmt"
+	"html/template"
 	"net/http"
 )
 
 func init() {
-	http.HandleFunc("/", home)
+	http.HandleFunc("/", homeHandler)
+	http.Handle("/stylesheets/", http.StripPrefix("/stylesheets/", http.FileServer(http.Dir("stylesheets"))))
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
+var homeTemplate = template.Must(template.ParseFiles("index.html"))
+
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	if err := homeTemplate.Execute(w, nil); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func main() {
