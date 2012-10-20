@@ -15,6 +15,20 @@
 					<li><a href="/search">Search</a></li>
 				</ul>
 				<div id="content">
+				{{with .Invoices}}
+				<table>
+					<thead>
+						<tr><th>Amount</th><th>Balance</th><th>Subject</th><th>Details</th><th>Tags</th><th>Account</th></tr>
+					</thead>
+					<tbody>
+				{{range .}}
+						<tr><td>{{printf "%.2f" .Amount}}</td><td>{{printf "%.2f" .Account.Balance}}</td><td>{{.Subject}}</td><td>{{.Details}}</td><td>{{.Tags}}</td><td>{{.Account.Name}}</td></tr>	
+				{{end}}
+					</tbody>
+				</table>
+				{{else}}
+				<p>There are no Invoices yet. Click Add to start.</p>
+				{{end}}
 				</div>
 		</div>
 	</body>
