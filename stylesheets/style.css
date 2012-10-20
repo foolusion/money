@@ -28,7 +28,7 @@ body {
 #menu li {
 	float: left;
 	margin: 0px;
-	padding: 4px 0px 2px 0px;
+	padding: 0px 0px 2px 0px;
 	width: 100px;
 	border-bottom: 2px solid #e3584d;
 }
@@ -36,8 +36,8 @@ body {
 #menu a {
 	position: relative;
 	display: block;
-	height: 40px;
-	line-height: 40px;
+	height: 44px;
+	line-height: 48px;
 	text-decoration: none;
 	text-transform: uppercase;
 	font-weight: bold;
@@ -52,7 +52,7 @@ body {
 
 #menu li.sel {
 	border-bottom:4px solid #e3584d;
-	padding: 4px 0px 0px 0px;
+	padding: 0px;
 }
 
 #menu li.sel a {
