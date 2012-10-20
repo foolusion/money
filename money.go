@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
+var page PageContext
+
 type Account struct {
 	Name    string
 	Balance float64
@@ -18,9 +20,13 @@ type Invoice struct {
 	Account
 }
 
+type Selected struct {
+	Money, Add, Recent, Monthly, Balance, Revenue, Search bool
+}
+
 type Head struct {
-	Selected string
-	Options  []string
+	Selected
+	Options []string
 }
 
 type PageContext struct {
@@ -36,13 +42,21 @@ func init() {
 		http.StripPrefix(
 			"/stylesheets/",
 			http.FileServer(http.Dir("stylesheets"))))
+	page = PageContext{
+		Head: Head{
+			Selected: Selected{
+				Money:   true,
+				Recent:  true,
+				Balance: true,
+			},
+		},
+	}
 }
 
-var homeTemplate = template.Must(template.ParseFiles("index.html"))
+var homeTemplate = template.Must(template.ParseFiles("index.html", "head.html"))
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	var p PageContext
-	if err := homeTemplate.Execute(w, p); err != nil {
+	if err := homeTemplate.Execute(w, page); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

@@ -5,16 +5,8 @@
 	</head>
 	<body>
 		<div id="main">
-				<ul id="menu">	
-					<li class="sel" ><a href="/">Money</a></li>
-					<li><a href="/add">Add</a></li>
-					<li><a href="/recent">Recent</a></li>
-					<li><a href="/monthly">Monthly</a></li>
-					<li><a href="/balance">Balance</a></li>
-					<li><a href="/revenue">Revenue</a></li>
-					<li><a href="/search">Search</a></li>
-				</ul>
-				<div id="content">
+			{{template "head" .Head}}
+			<div id="content">
 				{{with .Invoices}}
 				<table>
 					<thead>
