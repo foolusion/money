@@ -10,11 +10,11 @@
 				{{with .Invoices}}
 				<table>
 					<thead>
-						<tr><th>Amount</th><th>Balance</th><th>Subject</th><th>Details</th><th>Tags</th><th>Account</th></tr>
+						<tr><th>Amount</th><th>Balance</th><th>Subject</th><th>Details</th><th>Tags</th><th>Account</th><th>Time</th></tr>
 					</thead>
 					<tbody>
 				{{range .}}
-						<tr><td>{{printf "%.2f" .Amount}}</td><td>{{printf "%.2f" .Account.Balance}}</td><td>{{.Subject}}</td><td>{{.Details}}</td><td>{{.Tags}}</td><td>{{.Account.Name}}</td></tr>	
+						<tr><td>{{printf "%.2f" .Amount}}</td><td>{{printf "%.2f" .Account.Balance}}</td><td>{{.Subject}}</td><td>{{.Details}}</td><td>{{.Tags}}</td><td>{{.Account.Name}}</td><td>{{.Time}}</td></tr>	
 				{{end}}
 					</tbody>
 				</table>

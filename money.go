@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"net/http"
+	"time"
 )
 
 var page PageContext
@@ -22,6 +23,7 @@ type Invoice struct {
 	Details string
 	Tags    []string
 	Account
+	Time time.Time
 }
 
 // The selected values for the table display
@@ -71,10 +73,10 @@ func init() {
 		100.00,
 	})
 	inv = append(inv, &Invoice{
-		10.0, "test", "testing", []string{"t1", "t2"}, *acc[1]})
+		10.0, "test", "testing", []string{"t1", "t2"}, *acc[1], time.Now()})
 	acc[1].Balance -= 10.0
 	inv = append(inv, &Invoice{
-		20.0, "money", "money things", []string{"t1"}, *acc[1]})
+		20.0, "money", "money things", []string{"t1"}, *acc[1], time.Now()})
 	page.Invoices = inv
 }
 
