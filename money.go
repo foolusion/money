@@ -6,12 +6,16 @@ import (
 )
 
 var page PageContext
+var inv []*Invoice
+var acc []*Account
 
+// Holds the name and balance of an account.
 type Account struct {
 	Name    string
 	Balance float64
 }
 
+// Represents a transaction on an account.
 type Invoice struct {
 	Amount  float64
 	Subject string
@@ -20,18 +24,21 @@ type Invoice struct {
 	Account
 }
 
+// The selected values for the table display
 type Selected struct {
 	Money, Add, Recent, Monthly, Balance, Revenue, Search bool
 }
 
+// The Head information for displaying a page
 type Head struct {
 	Selected
 	Options []string
 }
 
+// A PageContext hold all the information for displaying a page
 type PageContext struct {
 	Head
-	Invoices []Invoice
+	Invoices []*Invoice
 	Tags     []string
 }
 
@@ -51,6 +58,24 @@ func init() {
 			},
 		},
 	}
+	inv = make([]*Invoice, 0, 100)
+	acc = make([]*Account, 0, 5)
+
+	// test data
+	acc = append(acc, &Account{
+		"Savings",
+		10000.00,
+	})
+	acc = append(acc, &Account{
+		"Checking",
+		100.00,
+	})
+	inv = append(inv, &Invoice{
+		10.0, "test", "testing", []string{"t1", "t2"}, *acc[1]})
+	acc[1].Balance -= 10.0
+	inv = append(inv, &Invoice{
+		20.0, "money", "money things", []string{"t1"}, *acc[1]})
+	page.Invoices = inv
 }
 
 var homeTemplate = template.Must(template.ParseFiles("index.html", "head.html"))
