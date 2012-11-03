@@ -60,13 +60,12 @@ body {
 }
 
 tr, table {
-	width: 90%;
+	width: 100%;
 	border-spacing: 0px;
 }
 
 td, th {
 	text-align: left;
-	width: 14.29%;
 	padding: 2px 2px;
 }
 

@@ -14,7 +14,7 @@
 </thead>
 <tbody>
 {{range .}}
-<tr><td>{{printf "%.2f" .Amount}}</td><td>{{printf "%.2f" .Account.Balance}}</td><td>{{.Subject}}</td><td>{{.Details}}</td><td>{{.Tags}}</td><td>{{.Account.Name}}</td><td>{{.Time}}</td></tr>	
+<tr><td>{{printf "%.2f" .Amount}}</td><td>{{printf "%.2f" .Account.Balance}}</td><td>{{.Subject}}</td><td>{{.Details}}</td><td>{{.Tags}}</td><td>{{.Account.Name}}</td><td>{{.Time.Format "2-1-2006 15:04"}}</td></tr>	
 {{end}}
 </tbody>
 </table>
