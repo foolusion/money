@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/gob"
 	"html/template"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -46,6 +48,7 @@ type PageContext struct {
 
 func init() {
 	http.HandleFunc("/", homeHandler)
+	http.HandleFunc("/add", addHandler)
 	http.Handle(
 		"/stylesheets/",
 		http.StripPrefix(
@@ -60,23 +63,15 @@ func init() {
 			},
 		},
 	}
-	inv = make([]*Invoice, 0, 100)
-	acc = make([]*Account, 0, 5)
-
-	// test data
-	acc = append(acc, &Account{
-		"Savings",
-		10000.00,
-	})
-	acc = append(acc, &Account{
-		"Checking",
-		100.00,
-	})
-	inv = append(inv, &Invoice{
-		10.0, "test", "testing", []string{"t1", "t2"}, *acc[1], time.Now()})
-	acc[1].Balance -= 10.0
-	inv = append(inv, &Invoice{
-		20.0, "money", "money things", []string{"t1"}, *acc[1], time.Now()})
+	f, err := os.Open("data.mon")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+	err = gob.NewDecoder(f).Decode(&inv)
+	if err != nil {
+		panic(err)
+	}
 	page.Invoices = inv
 }
 
@@ -86,6 +81,17 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	if err := homeTemplate.Execute(w, page); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+}
+
+func addHandler(w http.ResponseWriter, r *http.Request) {
+	file, err := os.OpenFile("data.mon", os.O_RDWR|os.O_CREATE, 0600)
+	defer file.Close()
+	if err != nil {
+		panic(err)
+	}
+	g := gob.NewEncoder(file)
+	g.Encode(inv)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func main() {
